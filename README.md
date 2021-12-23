@@ -18,9 +18,64 @@ Repository가 추상화되어 있으므로, 항상 같은 Interface로 데이터
 
 ## 구현
 
-기본적으로 프로젝트 폴더 내에 *data*라는 Package 경로를 생성하여 활용합니다.
+기본적으로 프로젝트 폴더 내에 *data*라는 Package 경로에 mapper,model,repository 디렉토리를 생성하여 관리 합니다.
 
-### Interface 구성
+<img src = "https://user-images.githubusercontent.com/48902047/147247494-206491e9-5c8a-4e89-bb23-1baa7b14c4c2.png" width="50%" height="50%">
+
+### Mapper
+```kotlin
+//Mapper.kr
+import com.mtjin.androidarchitecturestudy.data.model.search.MovieEntity
+import com.mtjin.androidarchitecturestudy.domain.model.search.Movie
+//Movie <- MovieEntity
+fun mapperToMovie(movies: List<MovieEntity>): List<Movie> {
+    return movies.toList().map {
+        Movie(
+            it.actor,
+            it.director,
+            it.image,
+            it.link,
+            it.pubDate,
+            it.subtitle,
+            it.title,
+            it.userRating
+        )
+    }
+}
+//MovieEntity <- Movie
+fun mapperToMovieEntity(movies: List<Movie>): List<MovieEntity> {
+    return movies.toList().map {
+        MovieEntity(
+            it.actor,
+            it.director,
+            it.image,
+            it.link,
+            it.pubDate,
+            it.subtitle,
+            it.title,
+            it.userRating
+        )
+    }
+}
+```
+위의 Mapper는 Entity와 Model사이 바꿔주는 함수입니다. 이 함수를 만듦으로서 BD변경시 Mapper로 정의한 클래스와 데이터를 가져오던 Repository만 변경하면 되는 장점이 있습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 
 ```kotlin
 //UserRepository.kt
 interface UserRepository {
